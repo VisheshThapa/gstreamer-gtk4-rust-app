@@ -2,7 +2,9 @@
 name = "gstplayer-gtk4"
 version = "0.1.0"
 edition = "2021"
-
+[rust]
+debug = true
+debuginfo-level = 2
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 #
 # [dependencies]
@@ -17,7 +19,7 @@ edition = "2021"
 derive_more = "0.99.17"
 anyhow = "1.0.79"
 proc-macro-crate = "3.0.0"
-gtk = { package = "gtk4", git = "https://github.com/gtk-rs/gtk4-rs" }
+gtk = { package = "gtk4", git = "https://github.com/gtk-rs/gtk4-rs"}
 gdk_wayland = { package = "gdk4-wayland", git = "https://github.com/gtk-rs/gtk4-rs", features = ["v4_4"], optional = true}
 gdk_x11 = { package = "gdk4-x11", git = "https://github.com/gtk-rs/gtk4-rs", features = ["v4_4"], optional = true}
 

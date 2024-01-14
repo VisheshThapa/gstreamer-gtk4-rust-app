@@ -4,12 +4,13 @@ use gst::prelude::*;
 use gstmodule::gstmanager::GstManager;
 use gtk::{gio, glib};
 use gtk::{prelude::*, Button};
+
 use std::cell::RefCell;
 
 fn create_ui(app: &gtk::Application) {
     let window = gtk::ApplicationWindow::new(app);
     let gstman = GstManager::new();
-
+    gstman.build_pipeline();
     window.set_default_size(640, 480);
     window.set_title(Some("GstPlayer - Gtk4 + Gstreamer"));
 
@@ -32,8 +33,7 @@ fn create_ui(app: &gtk::Application) {
             //let videos_filter = gtk::FileFilter::new();
             // videos_filter.add_suffix(Some("*.mpegts"));
             //videos_filter.set_name(Some("MPEGTS"));
-
-            let dialog = gtk::FileChooserDialog::builder()
+                let dialog = gtk::FileChooserDialog::builder()
                 .title("Open File")
                 .action(gtk::FileChooserAction::Open)
                 .modal(true)
@@ -42,15 +42,16 @@ fn create_ui(app: &gtk::Application) {
             dialog.add_button("Cancel", gtk::ResponseType::Cancel);
             dialog.add_button("Accept", gtk::ResponseType::Accept);
             dialog.set_transient_for(Some(&window));
-            dialog.run_async(glib::clone!(@weak gstman,@weak text_view => move |obj,res|{
-                match res {
-                    gtk::ResponseType::Accept => {
+            dialog.run_async( glib::clone!(@weak gstman,@weak text_view=> move |obj ,res|{
+                           match res {
+            gtk::ResponseType::Accept => {
+                        gstman.set_stop_stream();
                         let file = obj.file().unwrap();
                         let from_str = gio::File::uri(&file).replace("file:///","/");
                         text_view.set_label(&from_str);
                         print!("{}",from_str);
-
-                        gstman.set_video_filename(Some(&text_view.label().to_string()));
+                        //gstman.remove_gtksink_from_bin();
+                         gstman.set_video_filename(Some(&text_view.label().to_string()));
                     },
                     _ => {}
                 }
