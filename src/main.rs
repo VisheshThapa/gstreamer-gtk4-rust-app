@@ -24,7 +24,7 @@ fn create_ui(app: &gtk::Application) {
 
     picture.set_paintable(Some(&paintable));
 
-    let text_view = gtk::Label::new(Some("Please, select a mpegts video file."));
+    let text_view = gtk::Label::new(Some("Please, select a video file."));
     let fchooser = Button::with_label("Open File");
 
     fchooser.connect_clicked(

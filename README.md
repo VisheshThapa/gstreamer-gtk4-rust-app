@@ -25,3 +25,5 @@ cargo run
 ```
 
 ### Video of Line by Line
+
+[Video Link](https://www.youtube.com/watch?v=biA2xHBdjkk)
