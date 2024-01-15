@@ -1,6 +1,4 @@
-# Project Title
-
-GStreamer GTK4 Application in Rust
+# GStreamer GTK4 Application in Rust
 
 ## Description
 
